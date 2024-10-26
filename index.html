@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Knight Rider</title>
+</head>
+<style>
+    body {
+        background-color: black;
+    }
+    #kiit{
+        width: fit-content;
+        height: fit-content;
+        position: absolute;
+        top: 0;
+        bottom:0;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+    #light-panel{
+        display: flex;
+        gap: 5px;
+    }
+    .light{
+
+        border: 1px solid white;
+        width: 135px;
+        height: 20px;
+        border-radius: 5px;
+    }
+    #btn-panel{
+        width: fit-content;
+        margin: auto;
+        margin-top: 20px;
+
+    }
+
+    #btn-start, #btn-stop{
+        width: 100px;
+        height: 45px;
+        border-radius: 10px;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+
+    }
+
+    #btn-start{
+        background-color: green;
+    }
+
+    #btn-stop{
+        background-color: red;
+    }
+
+    h1{
+        width: fit-content;
+        margin: auto;
+        margin-top: 250px;
+        color: orangered;
+    }
+    #upper-hr{
+        width: 840px;
+        background-color: white;
+        margin-top: 23px;
+    }
+    #lower-hr{
+        width: 840px;
+        background-color: white;
+        margin-bottom: 18px;
+    }
+
+</style>
+<body>
+<h1>JavaScript Knight Rider</h1>
+<hr id="upper-hr">
+<section id="kiit">
+    <section id="light-panel">
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+    </section>
+
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+<hr id="lower-hr">
+    <section id="btn-panel">
+        <button id="btn-start" >Start</button>
+        <button id="btn-stop">Stop</button>
+    </section>
+
+</section>
+
+<audio controls autoplay style="display: none">
+    <source src="audio/Knight-Rider-Theme-Song.mp3">
+</audio>
+
+<script src="lib/Jquery/jquery-3.7.1.min.js"></script>
+<script>
+    const light_count = 6;
+    let current_light = -1;
+    let direction = "RIGHT";
+    let intervalId = null;
+
+    updateLight = () => {
+        if(direction==="RIGHT"){
+        current_light++;
+        $(".light").css("background","white")
+        $(".light").eq(current_light).css("background", "red");
+        $(".light").eq(current_light-1).css("background", "pink");
+
+        if(current_light==light_count-1){
+            direction = "LEFT";
+        }
+    } else{
+            current_light--;
+            $(".light").css("background","white")
+            $(".light").eq(current_light).css("background", "red");
+            $(".light").eq(current_light+1).css("background", "pink");
+
+            if (current_light==0){
+                direction = "RIGHT";
+            }
+        }}
+
+    $('#btn-start').on( 'click',function (){
+        intervalId = setInterval(updateLight,100);
+    });
+    $('#btn-stop').on( 'click',function (){
+        clearInterval(intervalId);
+    });
+</script>
+</body>
